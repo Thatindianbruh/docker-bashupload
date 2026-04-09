@@ -1,3 +1,8 @@
 files/
 tmp/
 config.local.php
+.DS_Store
+._*
+**/._ *
+**/._*
+.claude/

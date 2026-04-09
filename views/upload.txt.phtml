@@ -1,0 +1,37 @@
+<?php
+
+# Output streamed if was fed
+
+if ( isset($uploads) )
+{
+        echo "\n";
+
+        echo '=========================';
+
+        echo "\n\n";
+
+        $total = 0;
+        foreach ( $uploads as $file ) $total += $file['size'];
+
+        echo 'Uploaded ' .
+                        count($uploads) . ' file, ' .
+                        number_format($total, 0, '.', ' ') . ' bytes' . "\n\n";
+
+        foreach ( $uploads as $file )
+        {
+                $url = $_SERVER['REQUEST_SCHEME'] . '://' . HOST . '/' . $file['id'] . '/' . $file['name'];
+                echo "wget {$url}" . "\n";
+    echo "\n";
+        }
+
+        echo '=========================';
+        echo "\n\n";
+}else{
+$error = "The issue may be due to the transmitted file containing no data (i.e., a file size of 0).";
+}
+if ( isset($error) )
+{
+        echo "\n";
+        echo 'Error: ';
+        echo $error . "\n\n";
+}

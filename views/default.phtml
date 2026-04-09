@@ -1,0 +1,61 @@
+<div id="focus">
+  <div id="upload-instructions"
+       onclick="copy_code_to_clipboard();"
+       onmouseover="document.querySelector('#browser-header').innerText='Click to copy'"
+       onmouseout="document.querySelector('#browser-header').innerText=''">
+    
+    <div id="browser-header"></div>
+    
+  	<code>curl <?=HOST?> -T your_file.txt</code>
+  </div>
+  
+  <p class="note" align="center">
+  	<span class="aslo">alternatively</span>
+  	<a id=choosefile href="javascript:document.getElementById('inputfile').click();">choose file(s)</a>
+  	<span class="aslo">to upload</span>
+  	
+  	<?php if ( isset($has_docs) ) { ?>
+  	  <a href="/how_to_upload_file_to_server" title="Uploading to a server through cli">or read more docs</a>
+  	<?php } ?>
+  </p>
+  
+  <form method="post" onsubmit="return false;">
+  	<input type="file" style="display:none;" multiple id="inputfile" onchange="upload();" />
+  </form>
+  
+  <input type="text" id="copy"/>
+</div>
+
+
+<ul id="uploaded"></ul>
+<div id="dropper">Drop your files here...</div>
+<div id="dropzone"></div>
+
+
+<script>init_uploads();</script>
+
+<section class="examples">
+  <h2>examples</h2>
+
+  <?php
+    $examples = [
+      'upload a file'                  => 'curl ' . HOST . ' -T report.pdf',
+      'upload an entire folder (as zip)' => 'zip -r - ./my-folder | curl ' . HOST . ' -T - my-folder.zip',
+      'upload and store the link'      => 'curl ' . HOST . ' -T file.txt | tee /tmp/upload_url.txt',
+      'download with wget'             => 'wget https://' . HOST . '/stored/filename',
+      'download with curl'             => 'curl -O https://' . HOST . '/stored/filename',
+    ];
+  ?>
+  <?php foreach ($examples as $label => $cmd): ?>
+  <div class="example-group">
+    <p class="example-label"><?=htmlspecialchars($label)?></p>
+    <div class="example-window"
+         onclick="copy_to_clipboard(this.querySelector('code'), this.querySelector('.example-bar'))"
+         onmouseover="this.querySelector('.example-bar').innerText='Click to copy'"
+         onmouseout="this.querySelector('.example-bar').innerText=''">
+      <div class="example-bar"></div>
+      <pre><code class="example-code"><?=htmlspecialchars($cmd)?></code></pre>
+    </div>
+  </div>
+  <?php endforeach; ?>
+</section>

@@ -1,0 +1,397 @@
+/* Base */
+
+:root {
+  --bg: #0d0d0f;
+  --surface: #16161a;
+  --surface2: #1e1e24;
+  --border: #2a2a32;
+  --text: #e8e8f0;
+  --text-muted: #a0a0b8;
+  --accent: #7c6af7;
+  --accent-hover: #9d8fff;
+  --red: #ff5f5f;
+  --green: #3de87a;
+  --code-bg: #111115;
+  --code-text: #c8f0c0;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "SF Mono", "Fira Code", "Cascadia Code", "Roboto Mono", Menlo, Courier, monospace;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-weight: 500;
+  margin: 0 0 .5em 0;
+  letter-spacing: -0.02em;
+}
+
+h2, h3 {
+  margin: 1.5em 0 .5em 0;
+}
+
+h1 {
+  font-size: 1.6em;
+  color: var(--text);
+}
+
+h1 sup {
+  vertical-align: text-top;
+  color: var(--text-muted);
+  font-size: x-small;
+}
+
+p, ul {
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+ul.docs {
+  columns: 2;
+}
+
+ul.docs .active {
+  font-weight: bold;
+  color: var(--text);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+.sorry {
+  margin: 2em;
+  text-align: center;
+  color: var(--red);
+}
+
+
+/* Layout */
+
+#content {
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 100%;
+  padding: 0 1.5em 50px;
+}
+
+header {
+  font-size: 1em;
+  padding: 2em 0 1em;
+}
+
+header p {
+  margin: 0.4em 0 0;
+  font-size: 0.85em;
+  color: var(--text-muted);
+}
+
+header h1 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+header h1::before {
+  content: ">";
+  color: var(--accent);
+  font-size: 1em;
+}
+
+
+/* Code / upload window */
+
+#focus {
+  margin-top: 18vh;
+}
+
+#upload-instructions {
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+
+#upload-instructions:hover {
+  border-color: var(--accent);
+}
+
+#browser-header {
+  height: 36px;
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #c0c0d0;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+
+#browser-header::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff5f57;
+  box-shadow: 18px 0 0 #febc2e, 36px 0 0 #28c840;
+}
+
+code {
+  display: block;
+  text-align: left;
+  background: var(--code-bg);
+  padding: 1.6em 2em;
+  color: var(--code-text);
+  font-size: 0.95em;
+  letter-spacing: 0.01em;
+  transition: background 0.15s;
+}
+
+code:hover {
+  background: #13131a;
+  cursor: pointer;
+}
+
+#copy {
+  position: fixed;
+  top: -100px;
+}
+
+
+/* Note / alt upload */
+
+.note {
+  color: var(--text-muted);
+  font-size: 0.82em;
+  margin-top: 1.2em;
+}
+
+.alert {
+  color: var(--red);
+}
+
+.alert a {
+  color: var(--green);
+}
+
+.aslo {
+  opacity: 0.6;
+}
+
+#choosefile {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--accent);
+  transition: color 0.15s, border-color 0.15s;
+}
+
+#choosefile:hover {
+  color: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+
+/* Uploaded files list */
+
+#uploaded {
+  margin: 1.5em 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8em;
+  line-height: 1.7;
+}
+
+#uploaded li {
+  padding: 0.8em 0;
+  border-top: 1px solid var(--border);
+  color: var(--text);
+  word-break: break-all;
+}
+
+#uploaded li a {
+  color: var(--green);
+}
+
+
+/* Drag & Drop */
+
+#dropper {
+  box-sizing: border-box;
+  padding: 1em;
+  font-size: 0.75em;
+  color: transparent;
+  border: 2px solid transparent;
+  background: transparent;
+  text-align: center;
+  pointer-events: none;
+}
+
+#dropper.active {
+  position: fixed;
+  top: 20px;
+  bottom: 20px;
+  right: 20px;
+  left: 20px;
+  border: 3px dashed var(--accent);
+  color: var(--text);
+  font-size: 2em;
+  background: rgba(13, 13, 15, 0.88);
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+#dropzone {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+#dropzone.active {
+  z-index: 1;
+}
+
+
+/* Examples */
+
+.examples {
+  margin-top: 3.5em;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5em;
+}
+
+.examples h2 {
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 1.5em;
+}
+
+.example-group {
+  margin-bottom: 1.2em;
+}
+
+.example-label {
+  font-size: 0.9em;
+  color: var(--text-muted);
+  margin: 0 0 0.3em 0;
+  line-height: 1;
+}
+
+.example-window {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+
+.example-window:hover {
+  border-color: var(--accent);
+}
+
+.example-bar {
+  height: 30px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #c0c0d0;
+  min-height: 30px;
+  position: relative;
+}
+
+.example-bar::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff5f57;
+  box-shadow: 18px 0 0 #febc2e, 36px 0 0 #28c840;
+}
+
+.example-window pre {
+  margin: 0;
+}
+
+.example-group pre code {
+  border-radius: 0;
+  font-size: 0.95em;
+  padding: 0.9em 1.2em;
+  white-space: pre;
+  overflow-x: auto;
+  display: block;
+}
+
+
+/* Docs */
+
+.docs img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+b.c1 { color: #ff9944; }
+b.c2 { color: #7fd8ff; }
+b.c3 { color: #3de87a; }
+b.c4 { color: #ffe066; }
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  #focus {
+    margin-top: 2.5em;
+  }
+
+  ul.docs {
+    columns: 1;
+  }
+
+  .aslo {
+    display: none;
+  }
+
+  code {
+    padding: 1.2em 1.2em;
+    font-size: 0.9em;
+  }
+}

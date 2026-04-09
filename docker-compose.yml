@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  bashupload:
+    build: .
+    container_name: bashupload
+    restart: unless-stopped
+    ports:
+      - "9080:80"
+    environment:
+      - UPLOADSIZE=1G
+    volumes:
+      - /root/Config/bashupload/files:/app/files
